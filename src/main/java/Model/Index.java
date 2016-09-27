@@ -3,6 +3,10 @@ package Model;
 import Model.InpediaObjects.ApiKey;
 import Model.InpediaObjects.Query;
 import Model.InpediaObjects.SearhOutput;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
@@ -30,13 +34,18 @@ public class Index<T> {
         return indexClass;
     }
 
-    public boolean addObject(@NonNull T object) {
+    public void addObject(@NonNull T object) {
+        Gson gson = new GsonBuilder().create();
+        String data =  gson.toJson(object);
+        client.addObject(name,data);
 
-        return false;
     }
 
-    public boolean addObject(@NonNull T Object, @NonNull String objectId) {
-        return false;
+    public void addObject(@NonNull T object, @NonNull String objectId) {
+        Gson gson = new GsonBuilder().create();
+        String data =  gson.toJson(object);
+        //adding this object Id to data as objectId is being decided by the user
+        client.addObject(name,data);
     }
 
     public boolean addObjects(@NonNull List<T> objects) {

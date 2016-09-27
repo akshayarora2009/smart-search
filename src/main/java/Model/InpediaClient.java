@@ -22,6 +22,11 @@ public class InpediaClient {
 	return new Index<T> (name,indexClass,this);
 }
 
+void addObject(String indexName,String data)
+{
+
+}
+
 
 
 }
