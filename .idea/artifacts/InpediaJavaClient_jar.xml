@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="InpediaJavaClient:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/InpediaJavaClient_jar</output-path>
+    <root id="archive" name="InpediaJavaClient.jar">
+      <element id="module-output" name="InpediaJavaClient" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpasyncclient/4.1.2/httpasyncclient-4.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore-nio/4.4.5/httpcore-nio-4.4.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.4.5/httpcore-4.4.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.5.2/httpclient-4.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.9/commons-codec-1.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.7/gson-2.7.jar" path-in-jar="/" />
+      <element id="artifact" artifact-name="inpedia" />
+    </root>
+  </artifact>
+</component>
