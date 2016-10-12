@@ -2,6 +2,7 @@ package Elements;
 
 import Communication.InpediaCommunication;
 import Model.ApiKey;
+import Model.AsyncRequest;
 import Model.Query;
 import Utilities.Constants;
 import Utilities.HelperMethods;
@@ -21,7 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 public class Index<T>
 {
-
     private String name;
     private Class<T> indexClass;
     private InpediaClient client;
@@ -32,81 +32,68 @@ public class Index<T>
         return indexClass;
     }
 
-
-    public void addObjectAsync( int requestId,@NonNull T object, @NonNull String objectId, @NonNull InpediaCommunication inpediaCommunication) throws IOException {
-
+    public void addObjectAsync(AsyncRequest request,@NonNull T object, @NonNull String objectId) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("data",HelperMethods.getJsonString(object));
         jsonObject.addProperty("objectId",objectId);
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.ADD_OBJECT);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
-
+        client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-    public void addObjectsAsync( int requestId,@NonNull List<T> objects, @NonNull List<String> objectIds, @NonNull InpediaCommunication inpediaCommunication) throws IOException {
+    public void addObjectsAsync( AsyncRequest request,@NonNull List<T> objects, @NonNull List<String> objectIds) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("data",HelperMethods.getJsonString(objects));
         jsonObject.addProperty("objectIds",HelperMethods.getJsonString(objectIds));
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.ADD_OBJECTS);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+        client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-    public void deleteObjectAsync(int requestId, @NonNull String objectId, @NonNull InpediaCommunication inpediaCommunication) throws IOException {
+    public void deleteObjectAsync(AsyncRequest request, @NonNull String objectId) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectId",objectId);
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.DELETE_OBJECT);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+                client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-    public void deleteObjectsAsync(int requestId, @NonNull List<String> objectIds, @NonNull InpediaCommunication inpediaCommunication) throws IOException
-    {
+    public void deleteObjectsAsync(AsyncRequest request, @NonNull List<String> objectIds) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectIds",HelperMethods.getJsonString(objectIds));
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.DELETE_OBJECTS);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+                client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-    public void getObjectAsync(int requestId, @NonNull String objectId, @NonNull InpediaCommunication inpediaCommunication) throws IOException {
+    public void getObjectAsync(AsyncRequest request, @NonNull String objectId) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectId",objectId);
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.GET_OBJECT);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+                client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-    public void getObjectsAsync(int requestId, @NonNull List<String> objectIds, @NonNull InpediaCommunication inpediaCommunication) throws IOException {
+    public void getObjectsAsync(AsyncRequest request, @NonNull List<String> objectIds) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectIds",HelperMethods.getJsonString(objectIds));
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.GET_OBJECTS);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+                client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-
-    public void deleteIndexAsync(int requestId,  @NonNull InpediaCommunication inpediaCommunication) throws IOException{
+    public void deleteIndexAsync(AsyncRequest request,  @NonNull InpediaCommunication inpediaCommunication) throws IOException{
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.DELETE_INDEX);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+                client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-    public void  searchAsync(int requestId,@NonNull Query query, @NonNull InpediaCommunication inpediaCommunication) throws IOException {
+    public void  searchAsync(AsyncRequest request,@NonNull Query query) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("data",HelperMethods.getJsonString(query));
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.SEARCH_OBJECT);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+                client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
-
-    public void clearAsync(int requestId, @NonNull InpediaCommunication inpediaCommunication) throws IOException {
+    public void clearAsync(AsyncRequest request) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.CLEAR_INDEX);
-        client.sendRequestAsync(requestId,jsonObject,inpediaCommunication);
+        client.sendRequestAsync(request.requestId,jsonObject,request.inpediaCommunication);
     }
 
 //---
@@ -119,7 +106,6 @@ public class Index<T>
         jsonObject.addProperty("method", Constants.RequestMethods.ADD_OBJECT);
         return client.sendRequestSync(jsonObject);
     }
-
     public String addObjectsSync(@NonNull List<T> objects, @NonNull List<String> objectIds) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("data",HelperMethods.getJsonString(objects));
@@ -128,7 +114,6 @@ public class Index<T>
         jsonObject.addProperty("method", Constants.RequestMethods.ADD_OBJECTS);
         return client.sendRequestSync(jsonObject);
     }
-
     public String deleteObjectSync( @NonNull String objectId) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectId",objectId);
@@ -136,16 +121,13 @@ public class Index<T>
         jsonObject.addProperty("method", Constants.RequestMethods.DELETE_OBJECT);
         return client.sendRequestSync(jsonObject);
     }
-
-    public String deleteObjectsSync( @NonNull List<String> objectIds) throws IOException
-    {
+    public String deleteObjectsSync( @NonNull List<String> objectIds) throws IOException{
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectIds",HelperMethods.getJsonString(objectIds));
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.DELETE_OBJECTS);
         return client.sendRequestSync(jsonObject);
     }
-
     public String getObjectSync( @NonNull String objectId) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectId",objectId);
@@ -153,7 +135,6 @@ public class Index<T>
         jsonObject.addProperty("method", Constants.RequestMethods.GET_OBJECT);
         return client.sendRequestSync(jsonObject);
     }
-
     public String getObjectsSync( @NonNull List<String> objectIds) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("objectIds",HelperMethods.getJsonString(objectIds));
@@ -161,29 +142,27 @@ public class Index<T>
         jsonObject.addProperty("method", Constants.RequestMethods.GET_OBJECTS);
         return  client.sendRequestSync(jsonObject);
     }
-
-
     public String deleteIndexSync() throws IOException{
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.DELETE_INDEX);
         return  client.sendRequestSync(jsonObject);
     }
-
-    public String  searchSync(@NonNull Query query) throws IOException {
+    public String searchSync(@NonNull Query query) throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("data",HelperMethods.getJsonString(query));
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.SEARCH_OBJECT);
         return client.sendRequestSync(jsonObject);
     }
-
     public String clearSync() throws IOException {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("index",name);
         jsonObject.addProperty("method", Constants.RequestMethods.CLEAR_INDEX);
         return client.sendRequestSync(jsonObject);
     }
+
+  //----
 
     private Boolean deleteKey(@NonNull String key) {
         return false;
