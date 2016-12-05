@@ -14,8 +14,8 @@ public class InpediaClientBuilder {
 	{
 			this.apiKey = apiKey;
 	}
-	
-	
+
+
 	public InpediaClient build()
 	{
 		InpediaClient ip = new InpediaClient();
